@@ -1,66 +1,115 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'; // Ini wajib ada agar bisa menggunakan state dan interaksi pengguna
+
+import { useState } from 'react';
+import styles from './page.module.css'; // Kita akan buat file styling ini
 
 export default function Home() {
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      setResult(null); // Reset hasil saat gambar baru dipilih
+      setError(null);
+      
+      // Buat preview gambar untuk ditampilkan di halaman
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!file) {
+      setError("Silakan pilih file gambar terlebih dahulu.");
+      return;
+    }
+
+    setLoading(true);
+    setResult(null);
+    setError(null);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async () => {
+      const base64Image = reader.result;
+
+      try {
+        // Kirim gambar ke backend Python kita di /api/predict
+        const response = await fetch('/api/predict', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ image: base64Image }),
+        });
+
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.error || `Error: Terjadi kesalahan di server`);
+        }
+
+        const data = await response.json();
+        setResult(data); // Simpan hasil prediksi
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false); // Selesai loading
+      }
+    };
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className={styles.main}>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Deteksi Pneumonia</h1>
+        <p className={styles.description}>
+          Unggah gambar X-Ray paru-paru untuk mendeteksi pneumonia.
+        </p>
+
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <input 
+            type="file" 
+            accept="image/jpeg, image/png"
+            onChange={handleFileChange} 
+            className={styles.input}
+          />
+          <button type="submit" disabled={!file || loading} className={styles.button}>
+            {loading ? 'Menganalisis...' : 'Deteksi Sekarang'}
+          </button>
+        </form>
+
+        {error && <p className={styles.error}>Error: {error}</p>}
+
+        <div className={styles.resultsContainer}>
+          {preview && (
+            <div className={styles.imagePreview}>
+              <h3>Gambar Anda:</h3>
+              <img src={preview} alt="Preview" />
+            </div>
+          )}
+
+          {result && (
+            <div className={styles.result}>
+              <h3>Hasil Prediksi:</h3>
+              <p className={styles.prediction}>
+                {result.prediction}
+              </p>
+              <p className={styles.confidence}>
+                Tingkat Keyakinan: {result.confidence}
+              </p>
+            </div>
+          )}
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
