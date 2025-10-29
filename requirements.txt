@@ -1,0 +1,6 @@
+Flask
+tensorflow
+Pillow
+numpy
+opencv-python-headless
+ctransformers
