@@ -1,0 +1,1 @@
+ini saya buat dengan kemampuan memprediksi pneumonia dengan akurasi 89%. dan di bantu / terkonfigurasi dengan llm (tinyllama), saya pikir sekian terimakasih. ini di buat hanya dalam waktu 5 hari, end-to-end.
