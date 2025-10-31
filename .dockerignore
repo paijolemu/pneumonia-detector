@@ -1,0 +1,8 @@
+# Abaikan folder virtual environment
+venv/
+
+# Abaikan folder cache Python
+__pycache__/
+
+# Abaikan folder git
+.git/

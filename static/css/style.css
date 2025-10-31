@@ -1,19 +1,38 @@
-/* --- TEMA PROFESIONAL DARK MODE V2 --- */
+/* --- TEMA ARSITEKTUR BLUEPRINT V1 --- */
 :root {
-    --bg-color: #121212;
-    --panel-bg: #1E1E1E;
+    /* [DISEMPURNAKAN] Palet warna baru untuk tema blueprint */
+    --bg-color: #0A192F; /* Biru tua seperti kertas blueprint */
+    --panel-bg: rgba(13, 30, 55, 0.75); /* Biru yang lebih gelap & transparan */
     --text-primary: #EAEAEA;
-    --text-secondary: #A0A0A0;
-    --border-color: #333333;
-    --accent-blue: #3B82F6;
-    --accent-blue-hover: #60A5FA;
+    --text-secondary: #8892b0; /* Warna teks sekunder yang lebih lembut */
+    --border-color: #173A69; /* Biru lebih terang untuk border */
+    --accent-blue: #5691f5; /* Biru aksen yang lebih cerah */
+    --accent-blue-hover: #88b3fa;
     --accent-green: #4ADE80;
     --accent-red: #F87171;
     --font-family: 'Inter', sans-serif;
+    
+    --accent-blue-rgb: 86, 145, 245;
+    --accent-red-rgb: 248, 113, 113;
+    --accent-green-rgb: 74, 222, 128;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 
 body {
     background-color: var(--bg-color);
+    /* [BARU] Latar belakang dengan pola grid arsitektur */
+    background-image:
+        /* Garis grid tebal (major grid lines) */
+        linear-gradient(rgba(52, 85, 148, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(52, 85, 148, 0.2) 1px, transparent 1px),
+        /* Garis grid tipis (minor grid lines) */
+        linear-gradient(rgba(52, 85, 148, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(52, 85, 148, 0.1) 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+
     color: var(--text-primary);
     font-family: var(--font-family);
     margin: 0;
@@ -22,6 +41,7 @@ body {
     align-items: flex-start;
     padding: 3rem 1rem;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 .main-container {
@@ -30,245 +50,92 @@ body {
 }
 
 .main-panel {
+    /* [DISEMPURNAKAN] Panel disesuaikan dengan tema blueprint */
     background-color: var(--panel-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 2rem 2.5rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 16px; /* Sudut sedikit lebih tegas */
+    padding: 2.5rem 3rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(136, 179, 250, 0.1) inset;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.panel-header {
-    text-align: center;
-    margin-bottom: 1.5rem;
-}
-
-.header-icon {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 1rem auto;
-    background: linear-gradient(145deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.05));
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid var(--border-color);
-}
-
-.header-icon i {
-    font-size: 1.75rem;
-    color: var(--accent-blue);
+.main-panel:hover {
+    border-color: rgba(var(--accent-blue-rgb), 0.5);
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(var(--accent-blue-rgb), 0.2);
 }
 
 .panel-header h1 {
-    font-weight: 600;
-    font-size: 2rem;
-    letter-spacing: -0.5px;
-}
-
-.panel-header p {
-    color: var(--text-secondary);
-    font-size: 1rem;
-}
-
-.separator {
-    border: none;
-    height: 1px;
-    background-color: var(--border-color);
-    margin: 2rem 0;
+    font-weight: 700;
+    font-size: 2.25rem;
+    letter-spacing: -1px;
+    background: linear-gradient(45deg, #FFFFFF, #cad1de);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* --- Upload Section --- */
 .upload-area {
     border: 2px dashed var(--border-color);
-    border-radius: 12px;
-    padding: 2rem;
+    border-radius: 16px;
+    padding: 2.5rem;
     transition: all 0.3s ease;
     cursor: pointer;
+    background-color: rgba(10, 25, 47, 0.4); /* Background lebih gelap */
 }
 
 .upload-area.highlight, .upload-area:hover {
+    border-style: solid; /* [BARU] Border berubah dari putus-putus menjadi solid */
     border-color: var(--accent-blue);
-    background-color: rgba(59, 130, 246, 0.05);
+    background-color: rgba(var(--accent-blue-rgb), 0.1);
+    box-shadow: 0 0 25px rgba(var(--accent-blue-rgb), 0.3);
 }
 
-.upload-label {
-    display: block;
-    width: 100%;
-    cursor: pointer;
-}
-
-.upload-content {
-    text-align: center;
-    color: var(--text-secondary);
-}
-
-.upload-content i {
-    font-size: 2.5rem;
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
-    transition: color 0.3s ease;
-}
 .upload-area:hover .upload-content i {
     color: var(--accent-blue);
+    transform: scale(1.1) translateY(-5px); /* [DISEMPURNAKAN] Efek ikon lebih dramatis */
 }
+
+/* ... (Sisa kode CSS yang tidak diubah) ... */
+.header-icon { width: 60px; height: 60px; margin: 0 auto 1.5rem auto; background: linear-gradient(145deg, rgba(var(--accent-blue-rgb), 0.15), rgba(var(--accent-blue-rgb), 0.05)); border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 1px solid var(--border-color); box-shadow: 0 0 15px rgba(var(--accent-blue-rgb), 0.1); }
+.header-icon i { font-size: 1.75rem; color: var(--accent-blue); }
+.panel-header p { color: var(--text-secondary); font-size: 1.05rem; }
+.separator { border: none; height: 1px; background-image: linear-gradient(to right, transparent, var(--border-color), transparent); margin: 2rem 0; }
+.upload-label { display: block; width: 100%; cursor: pointer; }
+.upload-content { text-align: center; color: var(--text-secondary); }
+.upload-content i { font-size: 2.5rem; color: var(--text-secondary); margin-bottom: 1rem; transition: color 0.3s ease, transform 0.3s ease; }
 .upload-content p { margin: 0; font-size: 1.1rem; }
 .upload-content p strong { color: var(--text-primary); font-weight: 500; }
 .upload-content p span { display: block; font-size: 0.9rem; }
-.file-name {
-    display: block;
-    margin-top: 1rem;
-    font-size: 0.85rem;
-    font-style: italic;
-    color: var(--text-secondary);
-}
-
-.predict-button {
-    width: 100%;
-    padding: 1rem;
-    margin-top: 1.5rem;
-    background-color: var(--accent-blue);
-    color: white;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.predict-button:hover { background-color: var(--accent-blue-hover); }
-.predict-button:disabled { background-color: #555; cursor: not-allowed; }
-
-/* --- Result Section --- */
-.result-wrapper.animate-fade-in {
-    animation: fadeInScaleUp 0.6s ease-out forwards;
-}
-@keyframes fadeInScaleUp {
-    from { opacity: 0; transform: translateY(20px) scale(0.98); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.result-section h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 2rem;
-}
-.result-section h2 i {
-    margin-right: 0.5rem;
-    color: var(--text-secondary);
-}
-
-.error-message {
-    background-color: rgba(248, 113, 113, 0.1);
-    color: var(--accent-red);
-    border: 1px solid var(--accent-red);
-    padding: 1rem;
-    border-radius: 8px;
-    text-align: center;
-}
-
-.image-comparison {
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-}
-.image-container {
-    flex: 1;
-    text-align: center;
-}
-.image-container label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: var(--text-secondary);
-    font-weight: 500;
-}
-.image-container img {
-    width: 100%;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-}
-
-.prediction-text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
+.file-name { display: block; margin-top: 1rem; font-size: 0.85rem; font-style: italic; color: var(--text-secondary); }
+.predict-button { width: 100%; padding: 1rem; margin-top: 1.5rem; background-image: linear-gradient(45deg, var(--accent-blue), var(--accent-blue-hover)); color: white; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(var(--accent-blue-rgb), 0.2); }
+.predict-button:hover:not(:disabled) { transform: translateY(-3px) scale(1.02); box-shadow: 0 7px 25px rgba(var(--accent-blue-rgb), 0.35); filter: brightness(1.1); }
+.predict-button:disabled { background: #555; cursor: not-allowed; box-shadow: none; }
+.result-wrapper.animate-fade-in { animation: fadeInScaleUp 0.6s ease-out forwards; }
+@keyframes fadeInScaleUp { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.result-section h2 { font-size: 1.75rem; font-weight: 600; text-align: center; margin-bottom: 2.5rem; position: relative; padding-bottom: 0.75rem; }
+.result-section h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background-image: linear-gradient(to right, var(--accent-blue), var(--accent-blue-hover)); border-radius: 2px; }
+.result-section h2 i { margin-right: 0.75rem; color: var(--text-secondary); }
+.error-message { background-color: rgba(var(--accent-red-rgb), 0.1); color: var(--accent-red); border: 1px solid var(--accent-red); padding: 1rem; border-radius: 8px; text-align: center; }
+.image-comparison { display: flex; gap: 1.5rem; margin-bottom: 2rem; }
+.image-container { flex: 1; text-align: center; }
+.image-container label { display: block; margin-bottom: 0.75rem; color: var(--text-secondary); font-weight: 500; }
+.image-container img { width: 100%; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 0 15px rgba(0,0,0,0.3); }
+.prediction-text { padding: 1rem 1.5rem; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; border: 1px solid transparent; }
 .prediction-text h3 { margin: 0; font-weight: 600; font-size: 1.75rem; }
 .prediction-text i { font-size: 1.75rem; }
-
-.prediction-text.pneumonia { color: var(--accent-red); }
-.prediction-text.normal { color: var(--accent-green); }
-
-.progress-bar-outer {
-    width: 100%;
-    height: 30px;
-    background-color: var(--border-color);
-    border-radius: 8px;
-    overflow: hidden;
-}
-.progress-bar-inner {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-blue-hover) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 600;
-    transition: width 0.8s ease-out;
-}
-.prediction-text.pneumonia ~ .confidence-bar .progress-bar-inner {
-    background: linear-gradient(90deg, var(--accent-red) 0%, #ff7b7b 100%);
-}
-.prediction-text.normal ~ .confidence-bar .progress-bar-inner {
-    background: linear-gradient(90deg, var(--accent-green) 0%, #86efac 100%);
-}
-
-.disclaimer {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    text-align: center;
-    margin-top: 2rem;
-    padding: 0 1rem;
-}
-
-.main-footer {
-    text-align: center;
-    margin-top: 2rem;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-/* --- [BARU] LLM Explanation Section --- */
-.llm-explanation {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background-color: rgba(255, 255, 255, 0.03); /* Sedikit lebih terang dari panel */
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    text-align: left;
-}
-
-.llm-explanation h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-}
-
-.llm-explanation h4 i {
-    margin-right: 0.75rem;
-    color: #FACC15; /* Kuning untuk ikon 'ide' */
-}
-
-.llm-explanation p {
-    color: var(--text-secondary);
-    line-height: 1.7;
-    white-space: pre-wrap; /* Agar paragraf baru dari LLM ditampilkan dengan benar */
-}
+.prediction-text.pneumonia { background-color: rgba(var(--accent-red-rgb), 0.1); border-color: rgba(var(--accent-red-rgb), 0.3); color: var(--accent-red); }
+.prediction-text.normal { background-color: rgba(var(--accent-green-rgb), 0.1); border-color: rgba(var(--accent-green-rgb), 0.3); color: var(--accent-green); }
+.progress-bar-outer { width: 100%; height: 30px; background-color: rgba(0,0,0,0.2); border-radius: 8px; overflow: hidden; position: relative; }
+.progress-bar-inner { height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; transition: width 0.8s cubic-bezier(0.25, 1, 0.5, 1); position: relative; overflow: hidden; }
+.progress-bar-inner::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%); animation: shimmer 2s infinite linear; }
+@keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+.prediction-text.pneumonia ~ .confidence-bar .progress-bar-inner { background: linear-gradient(90deg, var(--accent-red) 0%, #ff7b7b 100%); }
+.prediction-text.normal ~ .confidence-bar .progress-bar-inner { background: linear-gradient(90deg, var(--accent-green) 0%, #86efac 100%); }
+.disclaimer { font-size: 0.85rem; color: var(--text-secondary); text-align: center; margin-top: 2rem; padding: 1rem; background-color: rgba(0,0,0,0.1); border-radius: 8px; }
+.main-footer { text-align: center; margin-top: 2.5rem; color: var(--text-secondary); font-size: 0.9rem; opacity: 0.7; }
+.llm-explanation { margin-top: 2.5rem; padding: 1.5rem; background-color: rgba(0,0,0,0.15); border: 1px solid var(--border-color); border-radius: 12px; text-align: left; }
+.llm-explanation h4 { font-size: 1.2rem; font-weight: 600; color: var(--text-primary); margin-bottom: 1rem; display: flex; align-items: center; }
+.llm-explanation h4 i { margin-right: 0.75rem; color: #FACC15; }
+.llm-explanation p { color: var(--text-secondary); line-height: 1.7; white-space: pre-wrap; }

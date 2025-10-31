@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,6 +51,7 @@
                             <div class="upload-content">
                                 <i class="fas fa-cloud-upload-alt fa-3x"></i>
                                 <p><strong>Klik untuk memilih file</strong><span>atau seret ke sini</span></p>
+                                <span class="file-types" style="font-size: 0.8rem; color: #777; margin-top: 8px; display: block;">Hanya mendukung: .jpg, .jpeg, .png</span>
                                 <span id="file-name-display" class="file-name">Belum ada file dipilih</span>
                             </div>
                         </label>
@@ -76,12 +77,12 @@
                         <div class="image-comparison">
                             <div class="image-container">
                                 <label>Gambar Asli</label>
-                                <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Gambar Asli">
+                                <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="X-Ray Asli yang dianalisis">
                             </div>
                             {% if heatmap_filename %}
                             <div class="image-container">
                                 <label>Analisis Heatmap (Grad-CAM)</label>
-                                <img src="{{ url_for('static', filename='uploads/' + heatmap_filename) }}" alt="Analisis Heatmap">
+                                <img src="{{ url_for('static', filename='uploads/' + heatmap_filename) }}" alt="Heatmap hasil analisis X-Ray">
                             </div>
                             {% endif %}
                         </div>
@@ -115,6 +116,11 @@
                         <p class="disclaimer">
                             <strong>Disclaimer:</strong> Hasil ini adalah output dari model AI dan tidak boleh dianggap sebagai diagnosis medis final. Selalu konsultasikan dengan dokter atau ahli radiologi.
                         </p>
+                        <div style="text-align: center; margin-top: 1.5rem;">
+                            <a href="/" class="predict-button" style="text-decoration: none; width: auto; padding: 0.8rem 2rem;">
+                                <i class="fa-solid fa-rotate-right" style="margin-right: 0.5rem;"></i> Analisis Gambar Lain
+                            </a>
+                        </div>
                     {% endif %}
                 </section>
             </div>
@@ -122,7 +128,7 @@
 
         </div>
         <footer class="main-footer">
-            website ini di buat hanya dlaam waktu seminggu, sudah beserta model dan website
+            website ini di buat hanya dalam waktu seminggu, sudah beserta model dan website dan juga paper ilmiah, saya taroh di github ya...
         </footer>
     </div>
 
@@ -164,6 +170,7 @@
             fileInput.files = e.dataTransfer.files;
             handleFileSelect(fileInput);
         }, false);
+
     </script>
 </body>
 </html>
