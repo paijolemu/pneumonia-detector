@@ -23,6 +23,9 @@ Hasil akhir menunjukkan bahwa model ini mampu mendeteksi pneumonia dengan akuras
 Proyek ini menunjukkan bagaimana kecerdasan buatan (AI) dapat membantu proses analisis radiologi secara cepat dan transparan, sekaligus menjadi contoh penerapan AI + LLM dalam bidang medis dengan sumber daya terbatas.
 
 ⚠️ Catatan: Proyek ini bersifat penelitian/eksperimen dan tidak dimaksudkan untuk penggunaan klinis langsung tanpa validasi medis yang menyeluruh.
+
+
+
 ========================================================== english ==================================================================
 🧠 Pneumonia Detection using Deep Learning & LLM Integration
 
